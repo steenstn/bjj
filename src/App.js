@@ -44,7 +44,7 @@ class App extends Component {
         <ul>
           {sessions.map(session => (
             <li>
-              {session.date} {session.trainingType} {session.lengthMin}
+              {session.id} {session.date} {session.trainingType} {session.lengthMin}
             </li>
           ))}
         </ul>
