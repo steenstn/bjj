@@ -1,43 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
+import TrainingSessionForm from './TrainingSessionForm';
+import TrainingSessionsList from './TrainingSessionsList';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      sessions: []
-    };
   }
 
-  componentDidMount() {
-    fetch("https://bjjtraining.herokuapp.com/trainingsessions")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            sessions: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-  }
   render() {
+    return(
+      <div>
+      <TrainingSessionForm />
+      <TrainingSessionsList />
+      </div>
+    );
+    /*
     const { error, isLoaded, sessions } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div></div>;
     } else {
       return (
         <ul>
@@ -46,9 +29,8 @@ class App extends Component {
               {session.id} {session.date} {session.trainingType} {session.lengthMin}
             </li>
           ))}
-        </ul>
-      );
-    }
+        </ul>);
+    }*/
   }
 }
 
