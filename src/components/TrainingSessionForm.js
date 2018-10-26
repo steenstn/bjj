@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Form, Message } from 'semantic-ui-react';
+import {
+  Button, Form, Message, Dropdown,
+} from 'semantic-ui-react';
 
 class TrainingSessionForm extends React.Component {
   state = {
@@ -10,6 +12,12 @@ class TrainingSessionForm extends React.Component {
     success: false,
     warningList: [],
   };
+
+  validTrainingTypes = [
+    { text: 'GI', value: 'GI' },
+    { text: 'NO_GI', value: 'NO_GI' },
+    { text: 'OPEN_MAT', value: 'OPEN_MAT' },
+  ];
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value }, () => {
     // Validation
@@ -23,17 +31,8 @@ class TrainingSessionForm extends React.Component {
       warningList.push('Training length must be more than 0 minutes');
     }
 
-    const validTrainingTypes = ['GI', 'NO_GI', 'OPEN_MAT'];
-
-    if (!validTrainingTypes.includes(this.state.trainingType)) {
-      warningList.push(
-        `Training type must be one of the following: ${validTrainingTypes.join(', ')}`,
-      );
-    }
-
     this.setState({
       invalid: warningList.length > 0,
-      success: warningList.length === 0,
       warningList,
     });
   });
@@ -59,13 +58,19 @@ class TrainingSessionForm extends React.Component {
       date: '',
       lengthMin: '',
       trainingType: '',
-      valid: true,
+      invalid: false,
+      success: true,
     }));
   };
 
   render() {
     return (
-      <Form warning={this.state.invalid} success={this.state.success} onSubmit={this.handleSubmit}>
+      <Form
+        size="small"
+        warning={this.state.invalid}
+        success={this.state.success}
+        onSubmit={this.handleSubmit}
+      >
         <Form.Input
           placeholder="Enter date"
           name="date"
@@ -78,9 +83,10 @@ class TrainingSessionForm extends React.Component {
           value={this.state.lengthMin}
           onChange={this.handleChange}
         />
-        <Form.Input
-          placeholder="Enter training type"
+        <Form.Select
+          placeholder="Select training type"
           name="trainingType"
+          options={this.validTrainingTypes}
           value={this.state.trainingType}
           onChange={this.handleChange}
         />
