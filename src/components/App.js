@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
 import './App.css';
 import TrainingSessionForm from './TrainingSessionForm';
-import TrainingSessionsList from './TrainingSessionsList';
 
 class App extends Component {
   constructor(props) {
@@ -11,10 +9,9 @@ class App extends Component {
 
   render() {
     return (
-      <Container text>
+      <div>
         <TrainingSessionForm />
-        <TrainingSessionsList />
-      </Container>
+      </div>
     );
   }
 }

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { List, Grid } from 'semantic-ui-react';
 
-class TrainingSessionsList extends Component {
+class TrainingSessionsList extends React.Component {
   state = {
     error: null,
     isLoaded: false,
@@ -38,13 +39,21 @@ class TrainingSessionsList extends Component {
       return <div>Loading...</div>;
     }
     return (
-      <ul>
-        {sessions.map(session => (
-          <li>
-            {session.id} {session.date} {session.trainingType} {session.lengthMin}
-          </li>
-        ))}
-      </ul>
+      <Grid centered>
+        <Grid.Column width={10}>
+          <List relaxed>
+            {sessions.map(session => (
+              <List.Item>
+                <List.Content>
+                  <List.Header>
+                    {session.trainingType} ({session.lengthMin} minutes) {session.date}
+                  </List.Header>
+                </List.Content>
+              </List.Item>
+            ))}
+          </List>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
