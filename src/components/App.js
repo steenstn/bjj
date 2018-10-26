@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'semantic-ui-react';
 import './App.css';
 import TrainingSessionForm from './TrainingSessionForm';
 import TrainingSessionsList from './TrainingSessionsList';
@@ -9,11 +10,11 @@ class App extends Component {
   }
 
   render() {
-    return(
-      <div>
-      <TrainingSessionForm />
-      <TrainingSessionsList />
-      </div>
+    return (
+      <Container text>
+        <TrainingSessionForm />
+        <TrainingSessionsList />
+      </Container>
     );
   }
 }
