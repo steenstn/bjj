@@ -75,7 +75,6 @@ class TrainingSessionForm extends React.Component {
     } = this.state;
 
     return (
-      <React.Fragment>
         <Form size="small" warning={invalid} success={success} onSubmit={this.handleSubmit}>
           <Grid container>
             <Grid.Row centered>
@@ -116,9 +115,6 @@ class TrainingSessionForm extends React.Component {
             </Grid.Row>
           </Grid>
         </Form>
-        <Divider />
-        <TrainingSessionsList />
-      </React.Fragment>
     );
   }
 }

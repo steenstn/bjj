@@ -46,7 +46,8 @@ class TrainingSessionsList extends React.Component {
               <List.Item>
                 <List.Content>
                   <List.Header>
-                    {session.trainingType} ({session.lengthMin} minutes) {session.date}
+                    {session.date} {session.trainingType} ({session.lengthMin} minutes){' '}
+                    
                   </List.Header>
                 </List.Content>
               </List.Item>
