@@ -43,37 +43,39 @@ function SessionList(props) {
   }
 
   return (
-    <Table className="clearFixedMenus" unstackable striped>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell colSpan={16} textAlign="center">
-            <h4>{activePane}</h4>
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {sortedSessions.length === 0 && (
-          <Segment className="noSessions" tertiary textAlign="center">
-            No sessions found.
-          </Segment>
-        )}
-        {sortedSessions.map(session => (
-          <Table.Row textAlign="center" key={session.id}>
-            <Table.Cell>{format(session.date, 'YYYY-MM-DD')}</Table.Cell>
-            <Table.Cell>{session.trainingType}</Table.Cell>
-            <Table.Cell>{session.lengthMin} minutes</Table.Cell>
-            <Table.Cell>
-              <Icon
-                name="trash alternate"
-                color="red"
-                onClick={props.handleClick}
-                id={session.id}
-              />
-            </Table.Cell>
+    <React.Fragment>
+      <Table className="clearFixedMenus" unstackable striped>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell colSpan={16} textAlign="center">
+              <h4>{activePane}</h4>
+            </Table.HeaderCell>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+        </Table.Header>
+        <Table.Body>
+          {sortedSessions.map(session => (
+            <Table.Row textAlign="center" key={session.id}>
+              <Table.Cell>{format(session.date, 'YYYY-MM-DD')}</Table.Cell>
+              <Table.Cell>{session.trainingType}</Table.Cell>
+              <Table.Cell>{session.lengthMin} minutes</Table.Cell>
+              <Table.Cell>
+                <Icon
+                  name="trash alternate"
+                  color="red"
+                  onClick={props.handleClick}
+                  id={session.id}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      {sortedSessions.length === 0 && (
+        <Segment className="noSessions" tertiary textAlign="center">
+          No sessions found.
+        </Segment>
+      )}
+    </React.Fragment>
   );
 }
 
