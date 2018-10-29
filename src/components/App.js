@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  Button, Segment, Input, Menu, Grid,
-} from 'semantic-ui-react';
 import './App.css';
 
 import MenuTop from './MenuTop';
