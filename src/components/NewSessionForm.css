@@ -1,5 +1,4 @@
 .react-datepicker-wrapper {
-  margin-bottom: 1em;
   width: 100%;
 }
 
@@ -12,7 +11,7 @@
 }
 
 .react-datepicker-popper {
-  left: -1.5rem !important;
+  left: -1.0rem !important;
 }
 
 .confirmSession {

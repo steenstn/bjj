@@ -8,26 +8,79 @@ import MenuTop from './MenuTop';
 import MenuBottom from './MenuBottom';
 
 import NewSessionForm from './NewSessionForm';
-import PastSessionsView from './PastSessionsView';
-import PlannedSessionsView from './PlannedSessionsView';
+import SessionListView from './SessionListView';
 
 class App extends React.Component {
-  state = { activePane: 'Past Sessions' };
+  state = {
+    activePane: 'Past Training Sessions',
+    error: null,
+    isLoaded: false,
+    sessions: [],
+  };
 
-  handleClick = (newPane) => {
+  componentDidMount() {
+    this.loadSessions();
+  }
+
+  loadSessions = async () => fetch('/trainingsessions')
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          sessions: result,
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error,
+        });
+      },
+    );
+
+  handleMenuClick = (newPane) => {
     this.setState({ activePane: newPane });
   };
 
+  handleDeleteClick = async (event) => {
+    console.log(event.target.id);
+    const json = JSON.stringify({ id: event.target.id });
+
+    await fetch('/trainingsessions/', {
+      method: 'DELETE',
+      body: json,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    }).then((res) => {
+      console.log(res);
+      this.loadSessions();
+    });
+  };
+
   render() {
-    const { activePane } = this.state;
+    const {
+      activePane, error, isLoaded, sessions,
+    } = this.state;
     return (
-      <Grid className="mainWrapper" container verticalAlign="middle" columns={16} centered>
-        <MenuTop handleClick={this.handleClick} />
-        <NewSessionForm visible={activePane === 'New Session Form'} />
-        <PastSessionsView visible={activePane === 'Past Sessions'} />
-        <PlannedSessionsView visible={activePane === 'Planned Sessions'} />
-        <MenuBottom handleClick={this.handleClick} />
-      </Grid>
+      <React.Fragment>
+        <MenuTop handleClick={this.handleMenuClick} />
+        <div className="fixedMenuBuffer_top" />
+        <SessionListView
+          isLoaded={isLoaded}
+          error={error}
+          sessions={sessions}
+          activePane={activePane}
+          handleClick={this.handleDeleteClick}
+        />
+        <NewSessionForm activePane={activePane} />
+        <div className="fixedMenuBuffer_bottom" />
+        <MenuBottom handleClick={this.handleMenuClick} />
+      </React.Fragment>
     );
   }
 }

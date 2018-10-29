@@ -4,7 +4,7 @@ import { Menu } from 'semantic-ui-react';
 function MenuBottom(props) {
   const { handleClick } = props;
   return (
-    <Menu fixed="bottom" inverted color="blue" size="small" widths={1}>
+    <Menu fixed="bottom" inverted color="blue" widths={1}>
       <Menu.Item
         header
         fitted

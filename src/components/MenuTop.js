@@ -14,12 +14,12 @@ function MenuTop(props) {
       <Menu.Item
         header
         icon={{ name: 'calendar alternate outline', size: 'large' }}
-        onClick={() => handleClick('Planned Sessions')}
+        onClick={() => handleClick('Planned Training Sessions')}
       />
       <Menu.Item
         header
         icon={{ name: 'clock outline', size: 'large' }}
-        onClick={() => handleClick('Past Sessions')}
+        onClick={() => handleClick('Past Training Sessions')}
       />
     </Menu>
   );

@@ -1,5 +1,23 @@
-.mainWrapper {
-  height: 100%;
-  padding-top: 4.3rem;
-  padding-bottom: 4.3rem;
+.clearFixedMenus {
+  margin-top: 0 !important;
+  
+}
+
+.warningBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fixedMenuBuffer_top {
+  height: 47px;
+}
+
+.fixedMenuBuffer_bottom {
+  height: 40px;
+}
+
+/* To style the document scrollbar, remove `.custom-scrollbar` */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
 }
