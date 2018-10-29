@@ -1,7 +1,9 @@
 import React from 'react';
-import { List, Grid } from 'semantic-ui-react';
+import {
+  Table, Grid, Segment, Label,
+} from 'semantic-ui-react';
 
-class TrainingSessionsList extends React.Component {
+class PastSessionsView extends React.Component {
   state = {
     error: null,
     isLoaded: false,
@@ -38,25 +40,32 @@ class TrainingSessionsList extends React.Component {
     if (!isLoaded) {
       return <div>Loading...</div>;
     }
+    if (!this.props.visible) {
+      return null;
+    }
     return (
-      <Grid centered>
-        <Grid.Column width={10}>
-          <List relaxed>
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <Table unstackable striped color="blue">
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell colSpan={16} textAlign="center">
+                  Past Training Sessions
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
             {sessions.map(session => (
-              <List.Item>
-                <List.Content>
-                  <List.Header>
-                    {session.date} {session.trainingType} ({session.lengthMin} minutes){' '}
-                    
-                  </List.Header>
-                </List.Content>
-              </List.Item>
+              <Table.Row>
+                <Table.Cell>{session.date}</Table.Cell>
+                <Table.Cell textAlign="center">{session.trainingType}</Table.Cell>
+                <Table.Cell>{session.lengthMin} minutes</Table.Cell>
+              </Table.Row>
             ))}
-          </List>
+          </Table>
         </Grid.Column>
-      </Grid>
+      </Grid.Row>
     );
   }
 }
 
-export default TrainingSessionsList;
+export default PastSessionsView;

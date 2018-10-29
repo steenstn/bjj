@@ -1,41 +1,33 @@
 import React from 'react';
-import { Button, Segment, Input } from 'semantic-ui-react';
+import {
+  Button, Segment, Input, Menu, Grid,
+} from 'semantic-ui-react';
 import './App.css';
-import TrainingSessionForm from './TrainingSessionForm';
-import TrainingSessionList from './TrainingSessionsList';
+
+import MenuTop from './MenuTop';
+import MenuBottom from './MenuBottom';
+
+import NewSessionForm from './NewSessionForm';
+import PastSessionsView from './PastSessionsView';
+import PlannedSessionsView from './PlannedSessionsView';
 
 class App extends React.Component {
-  state = { activeItem: 'Previous Sessions' };
+  state = { activePane: 'Past Sessions' };
 
-  handleItemClick = (e, { content }) => this.setState({ activeItem: content });
+  handleClick = (newPane) => {
+    this.setState({ activePane: newPane });
+  };
 
   render() {
-    const { activeItem } = this.state;
+    const { activePane } = this.state;
     return (
-      <React.Fragment>
-        <Button
-          primary
-          fluid
-          icon={{ name: 'dropdown' }}
-          content="Add a new training session"
-          onClick={this.handleItemClick}
-        />
-        <TrainingSessionForm />
-        <Button.Group fluid compact widths={2}>
-          <Button
-            icon={{ name: 'calendar alternate outline' }}
-            content="Previous Sessions"
-            active={activeItem === 'Previous Sessions'}
-            onClick={this.handleItemClick}
-          />
-          <Button
-            icon={{ name: 'clock outline' }}
-            content="Planned Sessions"
-            active={activeItem === 'Planned Sessions'}
-            onClick={this.handleItemClick}
-          />
-        </Button.Group>
-      </React.Fragment>
+      <Grid className="mainWrapper" container verticalAlign="middle" columns={16} centered>
+        <MenuTop handleClick={this.handleClick} />
+        <NewSessionForm visible={activePane === 'New Session Form'} />
+        <PastSessionsView visible={activePane === 'Past Sessions'} />
+        <PlannedSessionsView visible={activePane === 'Planned Sessions'} />
+        <MenuBottom handleClick={this.handleClick} />
+      </Grid>
     );
   }
 }
