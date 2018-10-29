@@ -56,10 +56,13 @@ class NewSessionForm extends React.Component {
       return null;
     }
 
-    const id = toString(Math.floor(Math.random() * 1000));
+    const id = Math.floor(Math.random() * 100000).toString();
 
     const json = JSON.stringify({
-      id, date, lengthMin, trainingType,
+      id,
+      date,
+      lengthMin,
+      trainingType,
     });
 
     fetch('/trainingsessions/new', {
@@ -68,13 +71,15 @@ class NewSessionForm extends React.Component {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
-    }).then(() => this.setState({
-      date: moment(),
-      lengthMin: '',
-      trainingType: '',
-      invalid: false,
-      success: true,
-    }));
+    })
+      .then(() => this.setState({
+        date: moment(),
+        lengthMin: '',
+        trainingType: '',
+        invalid: false,
+        success: true,
+      }))
+      .then(() => this.props.loadSessions());
   };
 
   render() {
@@ -102,9 +107,9 @@ class NewSessionForm extends React.Component {
                 />
               </div>
               <Form.Field
-                label="Training Time"
+                label="Training Time (in minutes)"
                 control={Input}
-                placeholder="e.g. 30 minutes"
+                placeholder="e.g. 30"
                 name="lengthMin"
                 value={lengthMin}
                 onChange={this.handleChange}
@@ -122,7 +127,6 @@ class NewSessionForm extends React.Component {
                 className="confirmSession"
                 compact
                 color="green"
-                size="small"
                 type="submit"
                 onClick={this.handleSubmit}
               >

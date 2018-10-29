@@ -8,7 +8,7 @@ import MenuTop from './MenuTop';
 import MenuBottom from './MenuBottom';
 
 import NewSessionForm from './NewSessionForm';
-import SessionListView from './SessionListView';
+import SessionList from './SessionList';
 
 class App extends React.Component {
   state = {
@@ -70,14 +70,14 @@ class App extends React.Component {
       <React.Fragment>
         <MenuTop handleClick={this.handleMenuClick} />
         <div className="fixedMenuBuffer_top" />
-        <SessionListView
+        <SessionList
           isLoaded={isLoaded}
           error={error}
           sessions={sessions}
           activePane={activePane}
           handleClick={this.handleDeleteClick}
         />
-        <NewSessionForm activePane={activePane} />
+        <NewSessionForm loadSessions={this.loadSessions} activePane={activePane} />
         <div className="fixedMenuBuffer_bottom" />
         <MenuBottom handleClick={this.handleMenuClick} />
       </React.Fragment>
