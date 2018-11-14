@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import TrainingSessionForm from './TrainingSessionForm';
-import TrainingSessionsList from './TrainingSessionsList';
+import Main from './Main';
 
 class App extends Component {
   constructor(props) {
@@ -11,8 +10,7 @@ class App extends Component {
   render() {
     return(
       <div>
-      <TrainingSessionForm />
-      <TrainingSessionsList />
+      <Main />
       </div>
     );
   }
