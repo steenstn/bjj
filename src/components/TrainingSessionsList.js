@@ -10,7 +10,7 @@ class TrainingSessionsList extends Component {
         };
       }
     componentDidMount() {
-        fetch("https://bjjtraining.herokuapp.com/trainingsessions")
+        fetch("https://bjjtraining-dev.herokuapp.com/trainingsessions")
           .then(res => res.json())
           .then(
             (result) => {

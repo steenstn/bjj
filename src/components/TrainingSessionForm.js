@@ -14,7 +14,7 @@ class TrainingSessionForm extends Component {
             object[key] = value;
         });
         var json = JSON.stringify(object);
-        fetch('https://bjjtraining.herokuapp.com/trainingsessions/new', {
+        fetch('https://bjjtraining-dev.herokuapp.com/trainingsessions/new', {
             method: 'POST',
             body: json,
             headers: {
