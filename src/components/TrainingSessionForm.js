@@ -14,11 +14,13 @@ class TrainingSessionForm extends Component {
             object[key] = value;
         });
         var json = JSON.stringify(object);
+        let token = localStorage.getItem("token");
         fetch('https://bjjtraining-dev.herokuapp.com/trainingsessions/new', {
             method: 'POST',
             body: json,
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
+                "Authorization": `Bearer ${token}`
             },
           });
         

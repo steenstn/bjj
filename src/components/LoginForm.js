@@ -37,6 +37,7 @@ class LoginForm extends Component {
           .then(res => res.json())
           .then(
             (result) => {
+              localStorage.setItem("token", result.token);
               console.log("yay", result);
               this.props.history.push('/dashboard');
             },
@@ -45,6 +46,7 @@ class LoginForm extends Component {
             }
           );
     }
+
     render() {
         return(
             <div>

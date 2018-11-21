@@ -10,7 +10,13 @@ class TrainingSessionsList extends Component {
         };
       }
     componentDidMount() {
-        fetch("https://bjjtraining-dev.herokuapp.com/trainingsessions")
+      let token = localStorage.getItem("token");
+        fetch("https://bjjtraining-dev.herokuapp.com/trainingsessions", {
+          method: 'GET',
+          headers: {
+              "Authorization": `Bearer ${token}`
+          },
+        })
           .then(res => res.json())
           .then(
             (result) => {
