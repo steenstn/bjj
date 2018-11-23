@@ -4,6 +4,7 @@ class TrainingSessionForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleForm = React.createRef();
     }
 
     handleSubmit(event) {
@@ -22,21 +23,21 @@ class TrainingSessionForm extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": `Bearer ${token}`
             },
-          });
+          })
+            .then(alert("Traning session successfully added!"))
+            .then(this.handleForm.current.reset());
         
 
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} ref={this.handleForm}>
             <label htmlFor="date">Date</label>
             <input id="date" name="date" type="text"/>
             <label htmlFor="length">Length(min)</label>
             <input id="lengthMin" name="lengthMin" type="text" />
             <label htmlFor="trainingType">Training type</label>
-            
             <input id="trainingType" name="trainingType" type="text" />
-            
             <button>Add session</button>
             </form>
         );
