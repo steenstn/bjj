@@ -10,10 +10,6 @@ class TrainingSessionForm extends Component {
         }
     }
 
-    // state = {
-    //     lengthMin: 75
-    // }
-
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -31,19 +27,19 @@ class TrainingSessionForm extends Component {
                 "Authorization": `Bearer ${token}`
             },
         });
-
-
     }
 
     handleChange = (event) => {
         event.preventDefault();
-        if (!(/^(0|[1-9][0-9]*)$/.test(event.target.value))) {
+        let input = event.target.value;
+        if (!(/^(|[1-9][0-9]*)$/.test(input)) && input !== "") {
             this.setState({ inputErrorLengthMin: true })
         } else {
             this.setState({ inputErrorLengthMin: false })
         }
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ lengthMin: event.target.value });
     }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -51,15 +47,17 @@ class TrainingSessionForm extends Component {
                 <input id="date" name="date" type="text" />
                 <label htmlFor="length">Length(min)</label>
                 <input id="lengthMin" name="lengthMin" placeholder={this.state.lengthMin} type="text" onChange={this.handleChange} />
-                {this.state.inputErrorLengthMin && <p>You're wrong.</p>}
+                {this.state.inputErrorLengthMin && <p>Oops! Length must be an integer (above 0).</p>}
                 <label htmlFor="trainingType">Training type</label>
-                <input id="trainingType" name="trainingType" type="text" />
-
+                <select id="trainingType" name="trainingType">
+                    <option value="GI">GI</option>
+                    <option value="NO_GI">NO_GI</option>
+                    <option value="OPEN_MAT">OPEN_MAT</option>
+                </select>
                 <button>Add session</button>
             </form>
         );
     }
-
 }
 
 export default TrainingSessionForm;
