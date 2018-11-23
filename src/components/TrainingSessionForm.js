@@ -4,13 +4,21 @@ class TrainingSessionForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            lengthMin: 75,
+            inputErrorLengthMin: false
+        }
     }
+
+    // state = {
+    //     lengthMin: 75
+    // }
 
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
-        data.forEach(function(value, key){
+        data.forEach(function (value, key) {
             object[key] = value;
         });
         var json = JSON.stringify(object);
@@ -22,26 +30,36 @@ class TrainingSessionForm extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": `Bearer ${token}`
             },
-          });
-        
+        });
 
+
+    }
+
+    handleChange = (event) => {
+        event.preventDefault();
+        if (!(/^(0|[1-9][0-9]*)$/.test(event.target.value))) {
+            this.setState({ inputErrorLengthMin: true })
+        } else {
+            this.setState({ inputErrorLengthMin: false })
+        }
+        this.setState({ [event.target.name]: event.target.value });
     }
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-            <label htmlFor="date">Date</label>
-            <input id="date" name="date" type="text"/>
-            <label htmlFor="length">Length(min)</label>
-            <input id="lengthMin" name="lengthMin" type="text" />
-            <label htmlFor="trainingType">Training type</label>
-            
-            <input id="trainingType" name="trainingType" type="text" />
-            
-            <button>Add session</button>
+                <label htmlFor="date">Date</label>
+                <input id="date" name="date" type="text" />
+                <label htmlFor="length">Length(min)</label>
+                <input id="lengthMin" name="lengthMin" placeholder={this.state.lengthMin} type="text" onChange={this.handleChange} />
+                {this.state.inputErrorLengthMin && <p>You're wrong.</p>}
+                <label htmlFor="trainingType">Training type</label>
+                <input id="trainingType" name="trainingType" type="text" />
+
+                <button>Add session</button>
             </form>
         );
     }
-    
+
 }
 
 export default TrainingSessionForm;
