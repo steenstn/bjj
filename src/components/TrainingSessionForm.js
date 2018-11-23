@@ -24,7 +24,6 @@ class TrainingSessionForm extends Component {
                 "Authorization": `Bearer ${token}`
             },
           })
-            .then(alert("Traning session successfully added!"))
             .then(this.handleForm.current.reset());
         
 
