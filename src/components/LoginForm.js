@@ -27,7 +27,7 @@ class LoginForm extends Component {
             object[key] = value;
         });
         var json = JSON.stringify(object);
-        fetch(process.env.REACT_APP_BACKEND_URL + "login", {
+        fetch(process.env.REACT_APP_BACKEND_URL + "/user/login", {
             method: 'POST',
             body: json,
             headers: {
