@@ -11,7 +11,7 @@ class TrainingSessionsList extends Component {
       }
     componentDidMount() {
       let token = localStorage.getItem("token");
-        fetch("https://bjjtraining-dev.herokuapp.com/trainingsessions", {
+        fetch(process.env.REACT_APP_BACKEND_URL + "/trainingsessions", {
           method: 'GET',
           headers: {
               "Authorization": `Bearer ${token}`

@@ -9,7 +9,7 @@ class LoginForm extends Component {
         }
     }
     componentDidMount() {
-        fetch("https://bjjtraining-dev.herokuapp.com/test")
+        fetch(process.env.REACT_APP_BACKEND_URL + "/test")
           .then(
             (result) => {
                 if(result.status === 200) {
@@ -27,7 +27,7 @@ class LoginForm extends Component {
             object[key] = value;
         });
         var json = JSON.stringify(object);
-        fetch('https://bjjtraining-dev.herokuapp.com/user/login', {
+        fetch(process.env.REACT_APP_BACKEND_URL + "login", {
             method: 'POST',
             body: json,
             headers: {
