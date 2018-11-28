@@ -16,7 +16,7 @@ class TrainingSessionForm extends Component {
         });
         var json = JSON.stringify(object);
         let token = localStorage.getItem("token");
-        fetch('https://bjjtraining-dev.herokuapp.com/trainingsessions/new', {
+        fetch(process.env.REACT_APP_BACKEND_URL + "/trainingsessions/new", {
             method: 'POST',
             body: json,
             headers: {
