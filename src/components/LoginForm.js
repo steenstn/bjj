@@ -58,6 +58,7 @@ class LoginForm extends Component {
                 <input id="password" name="password" type="password" />
                 <button>Login</button>
                 </form>
+                <a href="/register"><button>Register new user</button></a>
             </div>
         );
     }
