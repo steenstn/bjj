@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 class TrainingSessionForm extends Component {
     constructor(props) {
@@ -7,12 +9,16 @@ class TrainingSessionForm extends Component {
         this.handleForm = React.createRef();
         this.state = {
             lengthMin: 75,
-            inputErrorLengthMin: false
+            inputErrorLengthMin: false,
+            currentDate: new Date()
         }
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        if(this.state.inputErrorLengthMin) {
+            return;
+        }
         const data = new FormData(event.target);
         var object = {};
         data.forEach(function (value, key) {
@@ -43,14 +49,24 @@ class TrainingSessionForm extends Component {
         this.setState({ lengthMin: event.target.value });
     }
 
+    setDate = (date) => {
+        this.setState({
+            currentDate: date
+        })
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit} ref={this.handleForm}>
                 <label htmlFor="date">Date</label>
-                <input id="date" name="date" type="text" />
+                <DatePicker 
+                    id="date"
+                    name="date"
+                    selected={this.state.currentDate}
+                    onChange={this.setDate}
+                    dateFormat="yyy-MM-dd"/>
                 <label htmlFor="length">Length(min)</label>
-                <input id="lengthMin" name="lengthMin" placeholder={this.state.lengthMin} type="text" onChange={this.handleChange} />
-                {this.state.inputErrorLengthMin && <p>Oops! Length must be an integer (above 0).</p>}
+                <input id="lengthMin" name="lengthMin" value={this.state.lengthMin} type="text" onChange={this.handleChange} />
                 <label htmlFor="trainingType">Training type</label>
                 <select id="trainingType" name="trainingType">
                     <option value="GI">GI</option>
@@ -58,6 +74,7 @@ class TrainingSessionForm extends Component {
                     <option value="OPEN_MAT">OPEN_MAT</option>
                 </select>
                 <button>Add session</button>
+                {this.state.inputErrorLengthMin && <p style={{color: "red"}}>Oops! Length must be an integer (above 0).</p>}
             </form>
         );
     }
