@@ -5,13 +5,17 @@ class TrainingSessionForm extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleForm = React.createRef();
+        this.state = {
+            lengthMin: 75,
+            inputErrorLengthMin: false
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
-        data.forEach(function(value, key){
+        data.forEach(function (value, key) {
             object[key] = value;
         });
         var json = JSON.stringify(object);
@@ -25,23 +29,38 @@ class TrainingSessionForm extends Component {
             },
           })
             .then(this.handleForm.current.reset());
+    }
         
 
+    handleChange = (event) => {
+        event.preventDefault();
+        let input = event.target.value;
+        if (!(/^(|[1-9][0-9]*)$/.test(input)) && input !== "") {
+            this.setState({ inputErrorLengthMin: true })
+        } else {
+            this.setState({ inputErrorLengthMin: false })
+        }
+        this.setState({ lengthMin: event.target.value });
     }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit} ref={this.handleForm}>
-            <label htmlFor="date">Date</label>
-            <input id="date" name="date" type="text"/>
-            <label htmlFor="length">Length(min)</label>
-            <input id="lengthMin" name="lengthMin" type="text" />
-            <label htmlFor="trainingType">Training type</label>
-            <input id="trainingType" name="trainingType" type="text" />
-            <button>Add session</button>
+                <label htmlFor="date">Date</label>
+                <input id="date" name="date" type="text" />
+                <label htmlFor="length">Length(min)</label>
+                <input id="lengthMin" name="lengthMin" placeholder={this.state.lengthMin} type="text" onChange={this.handleChange} />
+                {this.state.inputErrorLengthMin && <p>Oops! Length must be an integer (above 0).</p>}
+                <label htmlFor="trainingType">Training type</label>
+                <select id="trainingType" name="trainingType">
+                    <option value="GI">GI</option>
+                    <option value="NO_GI">NO_GI</option>
+                    <option value="OPEN_MAT">OPEN_MAT</option>
+                </select>
+                <button>Add session</button>
             </form>
         );
     }
-    
 }
 
 export default TrainingSessionForm;
