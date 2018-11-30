@@ -25,20 +25,21 @@ class RegistrationForm extends Component {
                 "Content-Type": "application/json; charset=utf-8",
             }
         })
-            .then(res => res.json())
-            .then(result => {
-                if(result.status === 200){
-                    console.log("registration successful", result)
-                    this.setState({registrationSuccessful: true})
+            .then(response => response.json().then((json) => ({json, response})))
+            .then(({json, response}) => {
+                if (!response.ok) {
+                    console.log("something went wrong", json)
+                    this.setState({ errorMessage: json.message })
                 }
                 else {
-                    console.log("something went wrong", result)
-                    this.setState({ errorMessage: result.message })
+                    console.log("registration successful", json)
+                    this.setState({ registrationSuccessful: true })
                 }
             },
             error => {
-                console.log("error at registration", error)
-            })
+                    console.log("error", error);
+                  }
+        )
     }
 
     render() {
