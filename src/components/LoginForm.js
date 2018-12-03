@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class LoginForm extends Component {
                 <input id="password" name="password" type="password" />
                 <button>Login</button>
                 </form>
-                <a href="/register"><button>Register new user</button></a>
+                <Link to="/register"><button>Register new user</button></Link>
             </div>
         );
     }
