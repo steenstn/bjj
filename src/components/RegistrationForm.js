@@ -28,11 +28,9 @@ class RegistrationForm extends Component {
             .then(response => response.json().then((json) => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
-                    console.log("something went wrong", json)
-                    this.setState({ errorMessage: json.message })
+                    this.setState({ errorMessage: json.message, registrationSuccessful: false })
                 }
                 else {
-                    console.log("registration successful", json)
                     this.setState({ registrationSuccessful: true })
                 }
             },
