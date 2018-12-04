@@ -40,8 +40,8 @@ class TrainingSessionsList extends Component {
   
   handleDelete(id) {
       let token = localStorage.getItem("token");
-      fetch(process.env.REACT_APP_BACKEND_URL + `/trainingsessions/${id}`, {
-          method: 'DELETE',
+      fetch(process.env.REACT_APP_BACKEND_URL + `/trainingsessions/${id}/delete`, {
+          method: 'POST',
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json; charset=utf-8"
@@ -49,7 +49,7 @@ class TrainingSessionsList extends Component {
       })
         .then(response => response.json())
         .then(removedItem => {
-          const updatedList = this.state.sessions.filter(session => session.id !== removedItem.id)
+          const updatedList = this.state.sessions.filter(session => session.id !== id)
           this.setState({sessions: updatedList})
       })
     }
