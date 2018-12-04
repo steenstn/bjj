@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
 class TrainingSessionsList extends Component {
     constructor(props) {
-        super(props);
+      super(props);
+      this.handleClose = this.handleClose.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
-          sessions: []
+          sessions: [],
+          open: false,
+          sessionID: ""
         };
     }
   
@@ -49,8 +56,16 @@ class TrainingSessionsList extends Component {
       })
         .then(() => {
           const updatedList = this.state.sessions.filter(session => session.id !== id)
-          this.setState({sessions: updatedList})
+          this.setState({sessions: updatedList, open: false})
       })
+    }
+  
+    handleClickOpen(id) {
+      this.setState({ open: true, sessionID: id });
+    }
+  
+    handleClose() {
+      this.setState({ open: false });
     }
   
       render() {
@@ -60,14 +75,23 @@ class TrainingSessionsList extends Component {
         } else if (!isLoaded) {
           return <div>Loading...</div>;
         } else {
-          return (
+          return (<div>
             <ul>
               {sessions.map(session => (
                   <li key={session.id}>
-                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleDelete(session.id)} key={session.id}>x</button>
-                  </li>
+                  {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleClickOpen(session.id)} key={session.id}>x</button>
+                </li>
+                  
               ))}
-            </ul>);
+            </ul>
+            <Dialog open={this.state.open} onClose={this.handleClose} aria-describedby="alert-dialog-description">
+              <DialogContent><DialogContentText id="alert-dialog-description">Are you sure you want to delete this training session?</DialogContentText></DialogContent>
+              <DialogActions>
+                <button onClick={this.handleClose}>No, keep this session</button>
+                <button onClick={() => this.handleDelete(this.state.sessionID)}>Yes, delete this session</button>
+              </DialogActions>
+            </Dialog>
+                          </div>);
         }
       }
     }
