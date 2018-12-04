@@ -38,7 +38,7 @@ class TrainingSessionsList extends Component {
           )
     }
   
-  handleDelete(id) {
+    handleDelete(id) {
       let token = localStorage.getItem("token");
       fetch(process.env.REACT_APP_BACKEND_URL + `/trainingsessions/${id}/delete`, {
           method: 'POST',
@@ -63,8 +63,8 @@ class TrainingSessionsList extends Component {
           return (
             <ul>
               {sessions.map(session => (
-                  <li>
-                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleDelete(session.id)}>x</button>
+                  <li key={session.id}>
+                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleDelete(session.id)} key={session.id}>x</button>
                   </li>
               ))}
             </ul>);
