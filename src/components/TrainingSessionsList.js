@@ -69,29 +69,29 @@ class TrainingSessionsList extends Component {
     }
   
       render() {
-        const { error, isLoaded, sessions } = this.state;
+        const { error, isLoaded, sessions, open, sessionID } = this.state;
         if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
           return <div>Loading...</div>;
         } else {
-          return (<div>
-            <ul>
-              {sessions.map(session => (
-                  <li key={session.id}>
-                  {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleClickOpen(session.id)} key={session.id}>x</button>
-                </li>
-                  
-              ))}
-            </ul>
-            <Dialog open={this.state.open} onClose={this.handleClose} aria-describedby="alert-dialog-description">
-              <DialogContent><DialogContentText id="alert-dialog-description">Are you sure you want to delete this training session?</DialogContentText></DialogContent>
-              <DialogActions>
-                <button onClick={this.handleClose}>No, keep this session</button>
-                <button onClick={() => this.handleDelete(this.state.sessionID)}>Yes, delete this session</button>
-              </DialogActions>
-            </Dialog>
-                          </div>);
+          return (
+            <div>
+              <ul>
+                {sessions.map(session => (
+                    <li key={session.id}>
+                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleClickOpen(session.id)} key={session.id}>x</button>
+                  </li>
+                ))}
+              </ul>
+              <Dialog open={open} onClose={this.handleClose} aria-describedby="alert-dialog-description">
+                <DialogContent><DialogContentText id="alert-dialog-description">Are you sure you want to delete this training session?</DialogContentText></DialogContent>
+                <DialogActions>
+                  <button onClick={this.handleClose}>No, keep this session</button>
+                  <button onClick={() => this.handleDelete(sessionID)}>Yes, delete this session</button>
+                </DialogActions>
+              </Dialog>
+            </div>);
         }
       }
     }
