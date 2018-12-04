@@ -8,7 +8,8 @@ class TrainingSessionsList extends Component {
           isLoaded: false,
           sessions: []
         };
-      }
+    }
+  
     componentDidMount() {
       let token = localStorage.getItem("token");
         fetch(process.env.REACT_APP_BACKEND_URL + "/trainingsessions", {
@@ -35,7 +36,24 @@ class TrainingSessionsList extends Component {
               });
             }
           )
-      }
+    }
+  
+  handleDelete(id) {
+      let token = localStorage.getItem("token");
+      fetch(process.env.REACT_APP_BACKEND_URL + `/trainingsessions/${id}`, {
+          method: 'DELETE',
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8"
+          }
+      })
+        .then(response => response.json())
+        .then(removedItem => {
+          const updatedList = this.state.sessions.filter(session => session.id !== removedItem.id)
+          this.setState({sessions: updatedList})
+      })
+    }
+  
       render() {
         const { error, isLoaded, sessions } = this.state;
         if (error) {
@@ -46,9 +64,9 @@ class TrainingSessionsList extends Component {
           return (
             <ul>
               {sessions.map(session => (
-                <li>
-                  {session.id} {session.date} {session.trainingType} {session.lengthMin}
-                </li>
+                  <li>
+                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.handleDelete(session.id)}>x</button>
+                  </li>
               ))}
             </ul>);
         }
