@@ -1,13 +1,13 @@
 {
-  "main.css": "/bjj/static/css/main.4f25d93f.chunk.css",
-  "main.js": "/bjj/static/js/main.79d7aff1.chunk.js",
-  "main.js.map": "/bjj/static/js/main.79d7aff1.chunk.js.map",
-  "static/js/1.f454918c.chunk.js": "/bjj/static/js/1.f454918c.chunk.js",
-  "static/js/1.f454918c.chunk.js.map": "/bjj/static/js/1.f454918c.chunk.js.map",
+  "main.css": "/bjj/static/css/main.5abfdd57.chunk.css",
+  "main.js": "/bjj/static/js/main.4e44303d.chunk.js",
+  "main.js.map": "/bjj/static/js/main.4e44303d.chunk.js.map",
+  "static/js/1.799255d7.chunk.js": "/bjj/static/js/1.799255d7.chunk.js",
+  "static/js/1.799255d7.chunk.js.map": "/bjj/static/js/1.799255d7.chunk.js.map",
   "runtime~main.js": "/bjj/static/js/runtime~main.aaa3d1db.js",
   "runtime~main.js.map": "/bjj/static/js/runtime~main.aaa3d1db.js.map",
-  "static/css/main.4f25d93f.chunk.css.map": "/bjj/static/css/main.4f25d93f.chunk.css.map",
+  "static/css/main.5abfdd57.chunk.css.map": "/bjj/static/css/main.5abfdd57.chunk.css.map",
   "index.html": "/bjj/index.html",
-  "precache-manifest.c87e6f58f67b84a6d17e3ef864f0172b.js": "/bjj/precache-manifest.c87e6f58f67b84a6d17e3ef864f0172b.js",
+  "precache-manifest.999c708de496a464c419d7fb41298117.js": "/bjj/precache-manifest.999c708de496a464c419d7fb41298117.js",
   "service-worker.js": "/bjj/service-worker.js"
 }
