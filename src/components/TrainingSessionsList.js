@@ -47,8 +47,7 @@ class TrainingSessionsList extends Component {
             "Content-Type": "application/json; charset=utf-8"
           }
       })
-        .then(response => response.json())
-        .then(removedItem => {
+        .then(() => {
           const updatedList = this.state.sessions.filter(session => session.id !== id)
           this.setState({sessions: updatedList})
       })
