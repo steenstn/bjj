@@ -10,14 +10,15 @@ class TrainingSessionForm extends Component {
         this.state = {
             lengthMin: 75,
             inputErrorLengthMin: false,
+            inputErrorDate: false,
             currentDate: new Date()
         }
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        if(this.state.inputErrorLengthMin) {
-            return;
+        if(this.state.inputErrorLengthMin || this.state.inputErrorDate) {  
+            return;        
         }
         const data = new FormData(event.target);
         var object = {};
@@ -38,10 +39,10 @@ class TrainingSessionForm extends Component {
     }
         
 
-    handleChange = (event) => {
+    inputValidationMinutes = (event) => {
         event.preventDefault();
         let input = event.target.value;
-        if (!(/^(|[1-9][0-9]*)$/.test(input)) && input !== "") {
+        if (!(/^(|[1-9][0-9]*)$/.test(input)) || input === "") {
             this.setState({ inputErrorLengthMin: true })
         } else {
             this.setState({ inputErrorLengthMin: false })
@@ -49,10 +50,18 @@ class TrainingSessionForm extends Component {
         this.setState({ lengthMin: event.target.value });
     }
 
-    setDate = (date) => {
-        this.setState({
-            currentDate: date
-        })
+    inputValidationDate = (date) => {
+        if(date === null) {
+            this.setState({
+                inputErrorDate: true,
+                currentDate: date
+            });
+        } else {
+            this.setState({
+                inputErrorDate: false,
+                currentDate: date
+            });
+        }
     }
 
     render() {
@@ -63,10 +72,10 @@ class TrainingSessionForm extends Component {
                     id="date"
                     name="date"
                     selected={this.state.currentDate}
-                    onChange={this.setDate}
-                    dateFormat="yyy-MM-dd"/>
+                    onChange={this.inputValidationDate}
+                    dateFormat="yyyy-MM-dd"/>
                 <label htmlFor="length">Length(min)</label>
-                <input id="lengthMin" name="lengthMin" value={this.state.lengthMin} type="text" onChange={this.handleChange} />
+                <input id="lengthMin" name="lengthMin" value={this.state.lengthMin} type="text" onChange={this.inputValidationMinutes} />
                 <label htmlFor="trainingType">Training type</label>
                 <select id="trainingType" name="trainingType">
                     <option value="GI">GI</option>
@@ -74,7 +83,8 @@ class TrainingSessionForm extends Component {
                     <option value="OPEN_MAT">OPEN_MAT</option>
                 </select>
                 <button>Add session</button>
-                {this.state.inputErrorLengthMin && <p style={{color: "red"}}>Oops! Length must be an integer (above 0).</p>}
+                {this.state.inputErrorLengthMin && <p style={{color: "red"}}>Length must be an integer (above 0).</p>}
+                {this.state.inputErrorDate && <p style={{color: "red"}}>Please pick a date.</p>}
             </form>
         );
     }
