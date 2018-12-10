@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://steenstn.github.io/bjj",
   "dependencies": {
+    "@material-ui/core": "^3.6.1",
     "gh-pages": "^2.0.1",
     "react": "^16.5.2",
     "react-datepicker": "^2.0.0",
