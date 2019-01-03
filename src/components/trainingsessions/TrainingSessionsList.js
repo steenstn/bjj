@@ -7,7 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 class TrainingSessionsList extends Component {
     constructor(props) {
       super(props);
-      this.closeDeleteDialog = this.closeDeleteDialog.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -17,35 +16,7 @@ class TrainingSessionsList extends Component {
         };
     }
   
-    componentDidMount() {
-      let token = localStorage.getItem("token");
-        fetch(process.env.REACT_APP_BACKEND_URL + "/trainingsessions", {
-          method: 'GET',
-          headers: {
-              "Authorization": `Bearer ${token}`
-          },
-        })
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                sessions: result
-              });
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-    }
-  
-    handleDelete(id) {
+    handleDelete = (id) => {
       let token = localStorage.getItem("token");
       fetch(process.env.REACT_APP_BACKEND_URL + `/trainingsessions/${id}/delete`, {
           method: 'POST',
@@ -60,19 +31,18 @@ class TrainingSessionsList extends Component {
       })
     }
   
-    openDeleteDialog(id) {
+    openDeleteDialog = (id) => {
       this.setState({ deleteDialogOpen: true, sessionID: id });
     }
   
-    closeDeleteDialog() {
+    closeDeleteDialog = () => {
       this.setState({ deleteDialogOpen: false });
     }
   
-      render() {
-        const { error, isLoaded, sessions, deleteDialogOpen, sessionID } = this.state;
-        if (error) {
-          return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
+      render = () => {
+        let sessions = this.props.sessions;
+        const { deleteDialogOpen, sessionID } = this.state;
+        if (!sessions) {
           return <div>Loading...</div>;
         } else {
           return (

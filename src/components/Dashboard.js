@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import TrainingSessionForm from './TrainingSessionForm';
-import TrainingSessionsList from './TrainingSessionsList';
 import MoveComponent from './moves/MoveComponent';
+import TrainingSessionComponent from './trainingsessions/TrainingSessionComponent';
 
 class Dashboard extends Component {
 
@@ -10,8 +9,7 @@ class Dashboard extends Component {
         <div>
             <p>Moves</p>
             <MoveComponent />
-            <TrainingSessionForm />
-            <TrainingSessionsList />
+            <TrainingSessionComponent />
         </div>);
     }
 }

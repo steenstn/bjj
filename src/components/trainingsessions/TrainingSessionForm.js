@@ -5,7 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 class TrainingSessionForm extends Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleForm = React.createRef();
         this.state = {
             lengthMin: 75,
@@ -15,7 +14,7 @@ class TrainingSessionForm extends Component {
         }
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         if(this.state.inputErrorLengthMin || this.state.inputErrorDate) {  
             return;        
@@ -34,9 +33,14 @@ class TrainingSessionForm extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": `Bearer ${token}`
             },
-          })
+          }).then(res => res.json())
+          .then(
+            (result) => {
+              this.props.onNewTrainingSession(result);
+            })
             .then(this.handleForm.current.reset());
     }
+
         
 
     inputValidationMinutes = (event) => {
