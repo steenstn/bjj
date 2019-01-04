@@ -3,6 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import './TrainingSessionList.css';
 
 class TrainingSessionsList extends Component {
     constructor(props) {
@@ -47,10 +48,10 @@ class TrainingSessionsList extends Component {
         } else {
           return (
             <div>
-              <ul>
+              <ul className="list">
                 {sessions.map(session => (
-                    <li key={session.id}>
-                    {session.id} {session.date} {session.trainingType} {session.lengthMin} <button onClick={() => this.openDeleteDialog(session.id)} key={session.id}>x</button>
+                    <li className="listEntry" key={session.id}>
+                    {session.date} Type: {session.trainingType} Length: {session.lengthMin} min<button className="deleteButton" onClick={() => this.openDeleteDialog(session.id)} key={session.id}>x</button>
                   </li>
                 ))}
               </ul>

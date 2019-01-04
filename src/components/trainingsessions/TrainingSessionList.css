@@ -1,0 +1,13 @@
+.listEntry {
+    background-color: #F2F0F5;
+    display: block;
+    margin: 4px;
+}
+
+.list {
+    width: 25%;
+}
+
+.deleteButton {
+    float:right;
+}
