@@ -6,7 +6,9 @@ class LoginForm extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            connectedToBackend: false
+            connectedToBackend: false,
+            loginSuccessful: false,
+            errorMessage: ""
         }
     }
     componentDidMount() {
@@ -35,14 +37,18 @@ class LoginForm extends Component {
                 "Content-Type": "application/json; charset=utf-8",
             },
           })
-          .then(res => res.json())
-          .then(
-            (result) => {
-              localStorage.setItem("token", result.token);
-              console.log("yay", result);
-              this.props.history.push('/dashboard');
-            },
-            (error) => {
+          .then(response => response.json().then((json) => ({json, response})))
+          .then(({json, response}) => {
+          if (!response.ok) {
+                this.setState({ errorMessage: "Invalid username or password", loginSuccessful: false })
+            }
+            else {
+                localStorage.setItem("token", json.token);
+                this.setState({loginSuccessful: true})
+                this.props.history.push('/dashboard');
+            }
+        },
+            error => {
               console.log("error", error);
             }
           );
@@ -60,6 +66,7 @@ class LoginForm extends Component {
                 <button>Login</button>
                 </form>
                 <Link to="/register"><button>Register new user</button></Link>
+                <p>{this.state.loginSuccessful ? "Login successful" : this.state.errorMessage}</p>
             </div>
         );
     }
