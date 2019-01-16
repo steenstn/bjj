@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MovesList from './MovesList';
+import MoveForm from './MoveForm';
 
 class MoveComponent extends Component {
 
@@ -24,7 +25,10 @@ class MoveComponent extends Component {
 
     render() {
         return(
-            <MovesList moves={this.state.moves}/>
+            <div>
+                <MoveForm />
+                <MovesList moves={this.state.moves}/>
+            </div>
         );
     }
 }
