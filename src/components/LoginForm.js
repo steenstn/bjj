@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import './LoginForm.css';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -56,16 +59,16 @@ class LoginForm extends Component {
 
     render() {
         return(
-            <div>
+            <div class="center">
                 <p>{this.state.connectedToBackend ? "Connected" : "Connecting.."}</p>
                 <form onSubmit={this.handleSubmit}>
-                <label>Username</label>
-                <input id="username" name="username" type="text"/>
-                <label>Password</label>
-                <input id="password" name="password" type="password" />
-                <button>Login</button>
+                <TextField id="username" label="Username" name="username" type="text"/>
+                <br />
+                <TextField id="password" label="Password" name="password" type="password" />
+                <br /><br />
+                <Button variant="outlined" type="submit">Login</Button>
                 </form>
-                <Link to="/register"><button>Register new user</button></Link>
+                <Link to="/register">Register</Link>
                 <p>{this.state.loginSuccessful ? "Login successful" : this.state.errorMessage}</p>
             </div>
         );
