@@ -10,12 +10,11 @@ class MoveForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
-        console.log("data", data);
         var object = {};
         data.forEach(function (value, key) {
             object[key] = value;
         });
-        console.log("json", json);
+        
         var json = JSON.stringify(object);
         let token = localStorage.getItem("token");
         fetch(process.env.REACT_APP_BACKEND_URL + "/moves/new", {
